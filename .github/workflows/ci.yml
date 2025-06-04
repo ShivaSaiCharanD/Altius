@@ -27,7 +27,7 @@ jobs:
       - name: Run tests (React)
         run: |
           cd frontend
-          npm test -- --watchAll=false
+          npm test -- --watch=false
 
       - name: Set up Python
         uses: actions/setup-python@v4
