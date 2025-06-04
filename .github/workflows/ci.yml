@@ -1,0 +1,46 @@
+name: CI/CD for React & Flask
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies (React)
+        run: |
+          cd frontend
+          npm install
+
+      - name: Run tests (React)
+        run: |
+          cd frontend
+          npm test -- --watchAll=false
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+
+      - name: Install dependencies (Flask)
+        run: |
+          cd backend
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run basic Flask tests (Optional)
+        run: |
+          cd backend
+          python -m unittest discover   # or use pytest if preferred
