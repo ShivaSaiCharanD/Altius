@@ -2,9 +2,9 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   build:
@@ -44,3 +44,13 @@ jobs:
         working-directory: backend
         run: |
           python -m py_compile app.py
+
+      - name: Run Flask server (sanity check)
+        working-directory: backend
+        env:
+          FLASK_APP: app.py
+          FLASK_ENV: development
+        run: |
+          nohup flask run --port=5000 &
+          sleep 5
+          curl --fail http://localhost:5000 || exit 1
