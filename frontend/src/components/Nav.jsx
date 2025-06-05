@@ -23,6 +23,9 @@ export default function NavBar() {
                     <li className="nav-item">
                         <Link className="nav-link" to="/">Home</Link>
                     </li>
+                    <li className="nav-item">
+                        <Link className="nav-link" to="/resources">Resources</Link>
+                    </li>
                     {isLoggedIn ? (
                         <li className="nav-item">
                             <Link className="nav-link" onClick={handleLogout} to="/login">Logout</Link>
